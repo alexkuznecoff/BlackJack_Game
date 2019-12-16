@@ -37,10 +37,68 @@ namespace BlackJack_Game
             Game game = new Game();
             bool play = true;
 
-            while(play)
+            while (play)
             {
                 game.Initialize(cards);
-                Console.WriteLine("Choes");
+                Console.WriteLine("Choise  who draws the card first");
+                Console.WriteLine("1. Dealer");
+                Console.WriteLine("2. Player");
+                string decision = Console.ReadLine();
+
+               if(decision=="1")
+                {
+                    Console.WriteLine("Dealer first take a card :");
+                    Console.WriteLine("Shaffle deck.........");
+
+                    Deck.Shuffle(game.playingDeck);
+                    Dealer dealer = new Dealer(game.playingDeck, --Game.cardIndex);
+                    Console.WriteLine($"Dealer take a  {dealer.dealerCounter} cards");
+
+                    Player player = new Player(game.playingDeck, --Game.cardIndex);
+                    Console.WriteLine($"Player take {player.playerCounter} cards");
+
+                    Console.WriteLine("You are holding cards");
+                    Deck.PrintDeck(player.playerHand);
+
+                    Console.WriteLine($"Value of your hand  {Deck.DeckValueCalculating(player.playerHand)}");
+                    Console.WriteLine("Press any key for continue....");
+                    Console.ReadKey();
+
+                    if(!game.CheckAces(dealer,player))
+                    {
+                        game.ChoiceOptionIfDealerFirst(dealer, player);
+                        game.CalculaitingPoints(dealer, player);
+                    }
+                        play = game.GameResult();
+                }
+               else if (decision =="2")
+                {
+                    Console.WriteLine("Your first take a card");
+                    Deck.Shuffle(game.playingDeck);
+
+                    Player player = new Player(game.playingDeck, --Game.cardIndex);
+                    Console.WriteLine($"Yor take a {player.playerCounter} cards");
+
+                    Dealer dealer = new Dealer(game.playingDeck, --Game.cardIndex);
+                    Console.WriteLine($"Dealer take a {dealer.dealerCounter} cards");
+
+                    Console.WriteLine($"Value of your hand : {Deck.DeckValueCalculating(player.playerHand)}");
+                    Console.WriteLine("Press ane key for continue...");
+                    Console.ReadKey();
+
+                    if(!game.CheckAces(dealer, player))
+                    {
+                        game.ChoiceOptionIfPlayerFirst(dealer, player);
+                        game.CalculaitingPoints(dealer, player);
+                    }
+                    play = game.GameResult();
+                }
+                else
+                {
+                    Console.WriteLine("Incorrect input.");
+                    Console.WriteLine("try againe");
+                }
+               
             }
             /*
             Card[] cards = new Card[52];

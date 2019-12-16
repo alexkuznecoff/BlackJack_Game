@@ -18,9 +18,9 @@ namespace BlackJack_Game
             cardIndex = 0;
             playingDeck = cards;
 
-            foreach(Rank rank in Enum.GetValues(typeof(Rank)))
+            foreach(Rank rank in Enum.GetValues(typeof(Rank)))  
             {
-                foreach (Suit suit in Enum.GetValues(typeof(Suit)))
+                foreach (Suit suit in Enum.GetValues(typeof(Suit)))   
                 {
                     playingDeck[cardIndex] = new Card { Rank = rank, Suit = suit };
                     playingDeck[cardIndex].Value = (int)playingDeck[cardIndex].Rank;   
@@ -74,6 +74,26 @@ namespace BlackJack_Game
                 }
             }
         }
-     
+
+        internal bool GameResult()
+        {
+            throw new NotImplementedException();
+        }
+
+
+        public void ChoiceOptionIfDealerFirst(Dealer dealer, Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool CheckAces(Dealer dealer, Player player)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void ChoiceOptionIfPlayerFirst(Dealer dealer, Player player)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
