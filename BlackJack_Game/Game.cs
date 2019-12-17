@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BlackJack_Game
@@ -74,24 +75,126 @@ namespace BlackJack_Game
                 }
             }
         }
-
-        internal bool GameResult()
+        public bool CheckAces(Dealer dealer, Player player)
         {
-            throw new NotImplementedException();
+            bool aces = false;
+            if(dealer.dealerHand[0].Rank == Rank.Ace && dealer.dealerHand[1].Rank == Rank.Ace)
+            {
+                Console.Clear();
+                Console.WriteLine("Dealer won with two aces");
+                Console.WriteLine();
+                Console.WriteLine("Winner hand :");
+                Deck.PrintDeck(dealer.dealerHand);
+                dealerWinCounter++;
+
+                aces = true;
+            }
+            else if(player.playerHand[0].Rank == Rank.Ace && player.playerHand[1].Rank == Rank.Ace)
+            {
+                Console.Clear();
+                Console.WriteLine("Yor woinner with two aces");
+                Console.WriteLine();
+                Console.WriteLine("Winner hand :");
+                Deck.PrintDeck(player.playerHand);
+                playerWinCounter++;
+
+                aces = true;
+            }
+
+            return aces;
+
         }
-
-
+        
         public void ChoiceOptionIfDealerFirst(Dealer dealer, Player player)
         {
-            throw new NotImplementedException();
-        }
+            bool play = true;
 
-        internal bool CheckAces(Dealer dealer, Player player)
-        {
-            throw new NotImplementedException();
+            do
+            {
+                Console.WriteLine("Your whant one more card ?");
+                Console.WriteLine("1. Take");
+                Console.WriteLine("2. Stay");
+                string decision = Console.ReadLine();
+
+                switch(decision)
+                {
+                    case "1":
+                        if(Deck.DeckValueCalculating(dealer.dealerHand) <= 17)
+                        {
+                            Console.WriteLine("Dealer take one more card :");
+                            dealer.dealerHand = dealer.OneMoreCardToDealer(playingDeck, --cardIndex);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Dealer decides to stay!");
+                            if(Deck.DeckValueCalculating(player.playerHand) > 21)
+                            {
+                                play = false;
+                                continue;
+                            }
+                        }
+                        Console.WriteLine("Your take one more card...");
+                        Thread.Sleep(100);
+                        player.playerHand = player.OneMoreCardToPlayer(playingDeck, --cardIndex);
+                        if(Deck.DeckValueCalculating(player.playerHand) <= 21)
+                        {
+                            Console.WriteLine($"Dealer have {dealer.dealerCounter}  cards");
+                            Console.WriteLine();
+                            Console.WriteLine("Your have nex card");
+                            Deck.PrintDeck(player.playerHand);
+                            Console.WriteLine($"Yor points {Deck.DeckValueCalculating(player.playerHand)}");
+                            Console.WriteLine();
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            play = false;
+                        }
+                        break;
+                    case "2":
+                        do
+                        {
+                            if(Deck.DeckValueCalculating(dealer.dealerHand) <= 17)
+                            {
+                                Console.WriteLine("Dealer take one more card :");
+                                dealer.dealerHand = dealer.OneMoreCardToDealer(playingDeck, --cardIndex);
+
+                                if(Deck.DeckValueCalculating(dealer.dealerHand) > 21)
+                                {
+                                    play = false;
+                                    break;
+                                }
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("Dealer decides to stay! ");
+                                play = false;
+                            }
+                        } while (play);
+
+                        Console.WriteLine("Your stay !!!");
+                        Console.WriteLine();
+                        Console.WriteLine($"Dealer have {dealer.dealerCounter} cards");
+                        Console.WriteLine();
+                        Console.WriteLine("Your have next card :");
+                        Deck.PrintDeck(player.playerHand);
+                        Console.WriteLine($"Your total score {Deck.DeckValueCalculating(player.playerHand)}");
+                        break;
+                    default:
+                        Console.WriteLine("Incorrect input :");
+                        break;
+                }
+            }
+            while (play);
+
         }
 
         internal void ChoiceOptionIfPlayerFirst(Dealer dealer, Player player)
+        {
+            throw new NotImplementedException();
+        }
+        internal bool GameResult()
         {
             throw new NotImplementedException();
         }

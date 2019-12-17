@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BlackJack_Game
@@ -49,10 +50,14 @@ namespace BlackJack_Game
                 {
                     Console.WriteLine("Dealer first take a card :");
                     Console.WriteLine("Shaffle deck.........");
-
                     Deck.Shuffle(game.playingDeck);
+                    Thread.Sleep(1000);
+
+                    Console.Clear();
+
+
                     Dealer dealer = new Dealer(game.playingDeck, --Game.cardIndex);
-                    Console.WriteLine($"Dealer take a  {dealer.dealerCounter} cards");
+                    Console.WriteLine($"Dealer take a {dealer.dealerCounter} cards");
 
                     Player player = new Player(game.playingDeck, --Game.cardIndex);
                     Console.WriteLine($"Player take {player.playerCounter} cards");
@@ -77,7 +82,7 @@ namespace BlackJack_Game
                     Deck.Shuffle(game.playingDeck);
 
                     Player player = new Player(game.playingDeck, --Game.cardIndex);
-                    Console.WriteLine($"Yor take a {player.playerCounter} cards");
+                    Console.WriteLine($"Your take a {player.playerCounter} cards");
 
                     Dealer dealer = new Dealer(game.playingDeck, --Game.cardIndex);
                     Console.WriteLine($"Dealer take a {dealer.dealerCounter} cards");
@@ -100,22 +105,7 @@ namespace BlackJack_Game
                 }
                
             }
-            /*
-            Card[] cards = new Card[52];
-            Game game = new Game();
-            game.Initialize(cards);
-
-            Deck deck = new Deck();
-            deck.PrintDeck(cards);
-
-            Console.WriteLine("____________");
-            Deck.Shuffle(cards);
-            deck.PrintDeck(cards);
-
-            Console.WriteLine("card for player:");
-            Player player = new Player(game.playingDeck, Game.cardIndex);
-            deck.PrintDeck(player.playerHand);
-            */
+           
             Console.ReadKey();
         }
     }

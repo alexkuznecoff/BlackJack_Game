@@ -21,7 +21,7 @@ namespace BlackJack_Game
 
         }
 
-        private Card[] OneMoreCardToDealer(Card[] playingDeck, int count)
+        public Card[] OneMoreCardToDealer(Card[] playingDeck, int count)
         {
             dealerHand[dealerCounter] = playingDeck[count-1];
             dealerCounter++;
