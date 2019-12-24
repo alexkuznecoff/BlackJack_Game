@@ -13,7 +13,7 @@ namespace BlackJack_Game
             Random rand = new Random();
             int length = cards.Length;
 
-            while(length > 1)
+            while (length > 1)
             {
                 length--;
                 int index = rand.Next(length + 1);
@@ -22,11 +22,11 @@ namespace BlackJack_Game
                 cards[length] = card;
             }
         }
-        public static int DeckValueCalculating(Card[]cards)
+        public static int DeckValueCalculating(Card[] cards)
         {
             int decKValue = 0;
 
-            foreach(var card in cards)
+            foreach (var card in cards)
             {
                 decKValue += card.Value;
             }
@@ -34,11 +34,39 @@ namespace BlackJack_Game
         }
         public static void PrintDeck(Card[] cards)
         {
-            foreach(var item in cards)
+            for (int i = 0; i < cards.Length; i++)
             {
-                if(item.Value > 0)
+                if (cards[i].Value > 0)
                 {
-                    Console.WriteLine($"{item.Rank}  {item.Suit}  {item.Value} points");
+                    if (cards[i].Suit == Suit.Diamonds || cards[i].Suit == Suit.Hearts)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        if (cards[i].Suit == Suit.Diamonds)
+                        {
+                            cards[i].Unicode = '\u2666';
+                        }
+                        else if (cards[i].Suit == Suit.Hearts)
+                        {
+                            cards[i].Unicode = '\u2665';
+                        }
+
+                    }
+                    else
+                    {
+                        if (cards[i].Suit == Suit.Clubs)
+                        {
+                            cards[i].Unicode = '\u2663';
+                        }
+                        else if (cards[i].Suit==Suit.Spades)
+                        {
+                            cards[i].Unicode = '\u2660';
+                        }
+                            Console.ForegroundColor = ConsoleColor.White;
+                    }
+                    Console.OutputEncoding = Encoding.Unicode;
+
+                    Console.WriteLine($"{cards[i].Rank}  {cards[i].Unicode}  {cards[i].Value} points");
+                    Console.ResetColor();
                 }
             }
         }

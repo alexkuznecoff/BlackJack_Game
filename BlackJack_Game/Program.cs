@@ -13,6 +13,7 @@ namespace BlackJack_Game
         Hearts,
         Spades,
         Clubs,
+
     }
     public enum Rank
     {

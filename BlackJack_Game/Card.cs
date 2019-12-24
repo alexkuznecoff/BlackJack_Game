@@ -12,6 +12,8 @@ namespace BlackJack_Game
 
         public Rank Rank;
 
+        public char Unicode;
+
         public int Value;
     }
 }
